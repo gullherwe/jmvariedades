@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard de Monitoramento</title>
+</head>
+<body>
+    <h1>Dados de Monitoramento</h1>
+    <table border="1">
+        <tr>
+            <th>Tempo</th>
+            <th>Temperatura (°C)</th>
+            <th>Umidade (%)</th>
+        </tr>
+        {% for entry in data %}
+        <tr>
+            <td>{{ entry.timestamp }}</td>
+            <td>{{ entry.temperature }}</td>
+            <td>{{ entry.humidity }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
