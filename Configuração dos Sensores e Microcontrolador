@@ -1,0 +1,30 @@
+# Exemplo de código para ESP8266 usando MicroPython
+from machine import Pin
+import dht
+import network
+import urequests as requests
+import time
+
+# Configurar o sensor
+sensor = dht.DHT11(Pin(4))
+
+# Configurar o Wi-Fi
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect('SEU_SSID', 'SUA_SENHA')
+while not wlan.isconnected():
+    pass
+
+# Enviar dados para a nuvem
+def send_data(temp, hum):
+    url = 'URL_DA_API'  # Substitua pela URL da API da nuvem
+    payload = {'temperature': temp, 'humidity': hum}
+    response = requests.post(url, json=payload)
+    print(response.text)
+
+while True:
+    sensor.measure()
+    temperature = sensor.temperature()
+    humidity = sensor.humidity()
+    send_data(temperature, humidity)
+    time.sleep(60)  # Envia dados a cada 60 segundos
