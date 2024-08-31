@@ -1,0 +1,28 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import requests
+
+# Obter dados da API
+url = 'URL_DA_API_DADOS'  # Substitua pela URL da API para obter dados
+response = requests.get(url)
+data = response.json()
+
+# Converter dados para DataFrame
+df = pd.DataFrame(data)
+
+# Análise e visualização
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.plot(df['timestamp'], df['temperature'])
+plt.title('Temperatura ao Longo do Tempo')
+plt.xlabel('Tempo')
+plt.ylabel('Temperatura (°C)')
+
+plt.subplot(1, 2, 2)
+plt.plot(df['timestamp'], df['humidity'])
+plt.title('Umidade ao Longo do Tempo')
+plt.xlabel('Tempo')
+plt.ylabel('Umidade (%)')
+
+plt.tight_layout()
+plt.show()
